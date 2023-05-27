@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSA.API", "nvhien-rsa\RSA.API.csproj", "{4784419A-7B9A-4E4E-830F-2783A5A9C3F4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSA.Common", "RSA.Common\RSA.Common.csproj", "{AC825EC0-2E76-4CBA-910E-E2967E70B284}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSA.BL", "RSA.BL\RSA.BL.csproj", "{E17EE681-485D-4745-B571-2F4E6D8C100F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4784419A-7B9A-4E4E-830F-2783A5A9C3F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4784419A-7B9A-4E4E-830F-2783A5A9C3F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4784419A-7B9A-4E4E-830F-2783A5A9C3F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4784419A-7B9A-4E4E-830F-2783A5A9C3F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC825EC0-2E76-4CBA-910E-E2967E70B284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC825EC0-2E76-4CBA-910E-E2967E70B284}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC825EC0-2E76-4CBA-910E-E2967E70B284}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC825EC0-2E76-4CBA-910E-E2967E70B284}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E17EE681-485D-4745-B571-2F4E6D8C100F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E17EE681-485D-4745-B571-2F4E6D8C100F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E17EE681-485D-4745-B571-2F4E6D8C100F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E17EE681-485D-4745-B571-2F4E6D8C100F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3FB60B3C-22A9-492B-AD54-97D9C9F86AC2}
+	EndGlobalSection
+EndGlobal
