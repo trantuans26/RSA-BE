@@ -17,102 +17,56 @@ namespace nvhien_rsa.Controllers
         private static RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(1024);
         private RSAParameters _privateKey;
         private RSAParameters _publicKey;
+        private RSAModel _rsaModel;
 
         public RSAsController()
         {
             rsa = new RSACryptoServiceProvider(1024);
             _publicKey = rsa.ExportParameters(false);
             _privateKey = rsa.ExportParameters(true);
+            _rsaModel = new RSAModel();
         }
 
         [HttpPost("encrypt")]
         public IActionResult Encrypt([FromBody] EncryptInput input)
-        {   
-            if(input.value == null)
-            {
-                return StatusCode(StatusCodes.Status200OK);
-            } else
-            {
-                var bytesToEncrypt = Encoding.Unicode.GetBytes(input.value);
-
-                // Lấy khóa bí mật
-                var sw = new StringWriter();
-                var xs = new XmlSerializer(typeof(RSAParameters));
-                xs.Serialize(sw, _privateKey);
-
-                using (rsa = new RSACryptoServiceProvider())
-                {
-                    rsa.ImportParameters(_publicKey);
-
-                    var cypher = rsa.Encrypt(bytesToEncrypt, false);
-
-                    rsa.Dispose();
-
-                    EncryptedResult results = new EncryptedResult(Convert.ToBase64String(cypher), sw.ToString());
-
-                    return StatusCode(StatusCodes.Status200OK, results);
-                    //return StatusCode(StatusCodes.Status200OK, Convert.ToBase64String(cypher));
-                }
-            }
-
-            //var encrypted = Convert.ToBase64String(cypher);
-
-            //var dataBytes = Convert.FromBase64String(encrypted);
-            //rsa.Clear();
-            //rsa = new RSACryptoServiceProvider();
-            //rsa.ImportParameters(_privateKey);
-            //var plainText = rsa.Decrypt(dataBytes, false);
-            //return StatusCode(StatusCodes.Status200OK, Encoding.Unicode.GetString(plainText));
-        }
-
-        [HttpPost("decrypt")]
-        public IActionResult Decrypt([FromBody] DecryptInput input)
         {
-            if (input.textToDecrypt == null || input.privateKeyString == null)
+            if (input.value == null)
             {
                 return StatusCode(StatusCodes.Status200OK);
             }
             else
             {
-                var bytesToDescrypt = Encoding.UTF8.GetBytes(input.textToDecrypt);
+                RSAKey khoa = _rsaModel.taoKhoa();
+
+                KetQuaMaHoa results = new KetQuaMaHoa(_rsaModel.MaHoa(input.value, khoa), khoa);
+
+                return StatusCode(StatusCodes.Status200OK, results);
+            }
+        }
 
 
-                using (rsa = new RSACryptoServiceProvider())
-                {
-                    // Add khóa bí mật
-                    rsa.FromXmlString(input.privateKeyString);
+        [HttpPost("decrypt")]
+        public IActionResult Decrypt([FromBody] DecryptInput input)
+        {
+            if (input.textToDecrypt == null || input.khoa == null)
+            {
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            else
+            {
+                string ketQua = _rsaModel.GiaiMa(input.textToDecrypt, input.khoa);
 
-                    // convert string sang byte
-                    var resultBytes = Convert.FromBase64String(input.textToDecrypt);
-
-                    var decryptedBytes = rsa.Decrypt(resultBytes, false);
-
-                    var decryptedData = Encoding.Unicode.GetString(decryptedBytes);
-
-                    return StatusCode(StatusCodes.Status200OK, decryptedData.ToString());
-                }
+                return StatusCode(StatusCodes.Status200OK, ketQua);
             }
 
         }
 
-        [HttpGet("publicKey")]
-        public IActionResult getPublicKey()
+        [HttpGet("taoKhoa")]
+        public IActionResult taoKhoa()
         {
-            var sw = new StringWriter();
-            var xs = new XmlSerializer(typeof(RSAParameters));
-            xs.Serialize(sw, _publicKey);
+            RSAKey rsaKey = _rsaModel.taoKhoa();
 
-            return StatusCode(StatusCodes.Status200OK, sw.ToString());
-        }
-
-        [HttpGet("privateKey")]
-        public IActionResult getPrivateKey()
-        {
-            var sw = new StringWriter();
-            var xs = new XmlSerializer(typeof(RSAParameters));
-            xs.Serialize(sw, _privateKey);
-
-            return StatusCode(StatusCodes.Status200OK, sw.ToString());
+            return StatusCode(StatusCodes.Status200OK, rsaKey);
         }
     }
 }

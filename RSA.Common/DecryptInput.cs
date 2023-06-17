@@ -10,6 +10,6 @@ namespace RSA.Common
     {
         public string? textToDecrypt { get; set; }
 
-        public string? privateKeyString { get; set; }
+        public RSAKey? khoa { get; set; }
     }
 }
